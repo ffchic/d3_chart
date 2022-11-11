@@ -1,0 +1,50 @@
+<style>
+    body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    .box {
+        font: 10px sans-serif;
+    }
+
+    .box line,
+    .box rect,
+    .box circle {
+        /* fill: red; */
+        stroke: rgb(0, 0, 0);
+        stroke-width: 1px;
+    }
+
+    .box .center {
+        stroke-dasharray: 3, 3;
+    }
+
+    .box .outlier {
+        fill: none;
+        stroke: #000;
+    }
+
+    .axis {
+        font: 12px sans-serif;
+    }
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+
+    .x.axis path {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+</style>
+
+<body>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <!--script src="box.js"></script-->
+    <script src="./box2.js"></script>
+    <script src="./group.js"></script>
+    <!--script src="boxplot.js"></script-->
