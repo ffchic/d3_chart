@@ -1,1 +1,1 @@
-![chart](.\chart.png)
+![chart](./chart.png)
