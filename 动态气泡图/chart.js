@@ -14,7 +14,7 @@ let xValue = d => Math.log(d['确诊人数'] + 1);
 let yValue = d => Math.log(d['新增确诊'] + 1); 
 
 var color = {
-    "武汉":"#ff1c12",
+    "武汉": "#ff1c12",
     "黄石": "#de5991",
     "十堰": "#759AA0",
     "荆州": "#E69D87",
