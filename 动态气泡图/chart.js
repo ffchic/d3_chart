@@ -7,6 +7,7 @@ const innerHeight = height - margin.top - margin.bottom;
 let xScale, yScale;
 const xAxisLabel = '累计确诊人数（对数）';
 const yAxisLabel = '新增人数（对数）';
+const radiusLable = '现有确诊';
 const aduration = 1000;
 let alldates;
 let sequantial;
@@ -31,7 +32,7 @@ var color = {
     "天门": "#ffde1d",
     "潜江": "#1e9d95",
     "神农架": "#7289AB"
-}
+};
 
 const renderinit = function(data){
     xScale = d3.scaleLinear()
@@ -85,6 +86,11 @@ const renderinit = function(data){
 
 // 动态数据变化
 const renderUpdate = function(seq){
+    console.log("--------------")
+    seq.forEach(d => {
+        console.log(d['现有确诊'])
+    })
+
     console.log(seq)
     const g = d3.select('#maingroup');
     let circleupdates = g.selectAll("circle").data(seq, d => d['地区'])
@@ -92,7 +98,7 @@ const renderUpdate = function(seq){
     let circleenter = circleupdates.enter().append("circle")
     .attr('cx', d => xScale(xValue(d)))
     .attr('cy', d => yScale(yValue(d)))
-    .attr('r', 10)
+    .attr('r', d => Math.log(d['确诊人数']+1)+10)
     .attr('fill', d => color[d['地区']])
     .attr('opacity', 0.8)
     circleupdates.merge(circleenter)
@@ -103,10 +109,10 @@ const renderUpdate = function(seq){
 
 d3.csv('.\\hubeinxt.csv', function(data){
     data = data.filter(d => d['地区'] !=='总计');
-    console.log(data)
     data.forEach(d => {
         d['确诊人数'] = +d['确诊人数']
         d['新增确诊'] = +d['新增确诊']
+        d['现有确诊'] = +d['现有确诊']
     });
     alldates = Array.from(new Set(data.map(d => d['日期'])))
     alldates.sort(function(a,b){
@@ -131,7 +137,6 @@ d3.csv('.\\hubeinxt.csv', function(data){
             clearInterval(intervalId);
         }else{
             renderUpdate(sequantial[c]);
-            console.log(c)
             c++
 
         }
