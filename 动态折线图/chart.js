@@ -23,6 +23,7 @@ const render_init = function (data) {
 
     const xAxis = d3.axisBottom(xScale)
         .ticks(Math.floor(alldates.length) / 4)
+        // .tickFormat(d3.timeFormat('%d')) // 设置时间展示形式
         .tickSize(-innerHeight);
 
     const xAxisGroup = g.append('g').call(xAxis)
@@ -32,6 +33,7 @@ const render_init = function (data) {
     const yAxisGroup = g.append('g').call(yAxis);
 
     g.selectAll('.tick text').attr('font-size', '2em')
+    g.append("path").attr('id', "alterPath");
 
 }
 
@@ -39,7 +41,6 @@ const render_update = function (seq) {
     //展示左上角省份
     const p = seq[0]['省份']
     g.selectAll('.date_text').remove();
-    console.log(p)
     const provinces_text = g.append("text")
     .data(['seq'])
     .attr('class', "date_text")
@@ -51,6 +52,20 @@ const render_update = function (seq) {
     .attr('font-size', '6em')
     .attr('font-weight', 'bold')
     .text(p);
+
+
+    console.log(seq)
+    const line = d3.line()
+    .x(d => xScale(xValue(d)))
+    .y(d => yScale(yValue(d)))
+    .curve(d3.curveCardinal.tension(0.5));
+
+    d3.select("#alterPath").datum(seq)
+    .attr('stroke', 'green')
+    .attr('stroke-width', 2.5)
+    .attr('fill', 'none') // 这里填充要设置成空，否则会和x轴之间区域有填充
+    .transition().duration(2000)
+    .attr('d', line)
 
     
 
@@ -77,7 +92,7 @@ d3.csv('./province.csv', function (error, data) {
     allkeys.forEach(key => provinces[key] = provinces[key].sort((a,b) => {
         return b['日期'] - a['日期']
     }))
-    console.log(provinces)
+    
     render_init(data)
     let c = 0;
     let intervalId = setInterval(() => {
