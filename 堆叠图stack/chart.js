@@ -6,7 +6,7 @@ const innerWidth = width - margin.left - margin.right;
 const innerHeight = height - margin.top - margin.bottom;
 const g = svg.append('g').attr('id', 'maingroup')
   .attr('transform', `translate(${margin.left}, ${margin.top})`);
-const xValue = d => moment(d.month).format('YYY-M-D')
+const xValue = d => moment(d.month.toISOString()).format('YYYY-M-D');
 const naiveData = [
   { month: new Date(2015, 0, 1), apples: 3840, bananas: 1920, cherries: 960, dates: 400 },
   { month: new Date(2015, 1, 1), apples: 1600, bananas: 1440, cherries: 960, dates: 400 },
