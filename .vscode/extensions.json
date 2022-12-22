@@ -1,5 +1,6 @@
 {
     "recommendations": [
-        "funkyremi.vscode-google-translate"
+        "funkyremi.vscode-google-translate",
+        "ms-ceintl.vscode-language-pack-zh-hans"
     ]
 }
